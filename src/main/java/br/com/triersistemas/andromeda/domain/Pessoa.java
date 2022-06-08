@@ -1,47 +1,39 @@
 package br.com.triersistemas.andromeda.domain;
 
+import br.com.triersistemas.andromeda.helper.StringUtils;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Pessoa {
+    private UUID id;
     private String nome;
     private LocalDate niver;
 
-    private  UUID uuid;
-
     protected Pessoa() {
-        List<String> nomes = new ArrayList<>();
-        nomes.add("Bianca");
-        nomes.add("Vitória");
-        nomes.add("Caethana");
-        nomes.add("Kay");
-        nomes.add("Amanda");
-        nomes.add("Carol");
-        nomes.add("Davi");
-        nomes.add("Igor");
-        nomes.add("Antônio");
-        nomes.add("Edymar");
-        nomes.add("Edward");
-
-        SplittableRandom r = new SplittableRandom();
-        this.nome = nomes.get(r.nextInt(0, nomes.size()));
+        this.id = UUID.randomUUID();
+        this.nome = StringUtils.getRandomName();
         this.niver = LocalDate.now();
     }
 
-    public String getrandomUUID() {
-        UUID uuid = UUID.randomUUID();
-        String uuidAsString = uuid.toString();
-
-        return uuidAsString;
-
-    }
-
     protected Pessoa(final String nome, final LocalDate niver) {
+        this();
         this.nome = nome;
         this.niver = niver;
+    }
+
+    protected Pessoa editar(final String nome, final LocalDate niver) {
+        this.nome = nome;
+        this.niver = niver;
+        return this;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getNome() {
@@ -56,15 +48,12 @@ public abstract class Pessoa {
     }
 
     public Long getIdade() {
-        if (Objects.nonNull(niver)) {
-            return ChronoUnit.YEARS.between(niver, LocalDate.now());
-        }
-        return 0L;
+        return Objects.nonNull(niver) ? ChronoUnit.YEARS.between(niver, LocalDate.now()) : 0L;
     }
 
     public abstract String getDocumento();
 
-    public abstract boolean documentoValido();
+    public abstract boolean getDocumentoValido();
 
     protected int mod11(final List<Integer> digitos, final int... multiplicadores) {
         /*
@@ -79,20 +68,5 @@ public abstract class Pessoa {
         final var resto = digitos.stream()
                 .reduce(0, (p, e) -> p + e * multiplicadores[i.getAndIncrement()]) % 11;
         return resto > 9 ? 0 : resto;
-    }
-
-    protected String extractNumbers(final String val) {
-        if (Objects.nonNull(val)) {
-            return val.replaceAll("\\D+", "");
-        }
-        return "";
-    }
-
-    protected List<Integer> extractNumbersToList(final String cpf) {
-        List<Integer> digitos = new ArrayList<>();
-        for (char item : extractNumbers(cpf).toCharArray()) {
-            digitos.add(Integer.parseInt(String.valueOf(item)));
-        }
-        return digitos;
     }
 }
