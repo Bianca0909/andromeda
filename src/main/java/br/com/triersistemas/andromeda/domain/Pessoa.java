@@ -3,15 +3,14 @@ package br.com.triersistemas.andromeda.domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.SplittableRandom;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Pessoa {
     private String nome;
     private LocalDate niver;
+
+    private  UUID uuid;
 
     protected Pessoa() {
         List<String> nomes = new ArrayList<>();
@@ -30,6 +29,14 @@ public abstract class Pessoa {
         SplittableRandom r = new SplittableRandom();
         this.nome = nomes.get(r.nextInt(0, nomes.size()));
         this.niver = LocalDate.now();
+    }
+
+    public String getrandomUUID() {
+        UUID uuid = UUID.randomUUID();
+        String uuidAsString = uuid.toString();
+
+        return uuidAsString;
+
     }
 
     protected Pessoa(final String nome, final LocalDate niver) {

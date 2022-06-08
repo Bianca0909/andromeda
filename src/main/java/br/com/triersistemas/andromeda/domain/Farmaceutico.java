@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
+import java.util.UUID;
 
 public class Farmaceutico extends PessoaFisica {
 
@@ -17,6 +18,8 @@ public class Farmaceutico extends PessoaFisica {
         super(nome, niver, cpf);
         geraOferta();
     }
+
+
 
     public String getOfertaDia() {
         return ofertaDia;

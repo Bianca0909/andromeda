@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
+import java.util.UUID;
 
 public class Fornecedor extends PessoaJuridica {
 
@@ -16,6 +17,10 @@ public class Fornecedor extends PessoaJuridica {
     public Fornecedor(final String nome, final LocalDate niver, final String cnpj) {
         super(nome, niver, cnpj);
         geraProdutos();
+    }
+
+    public Fornecedor(String nome, LocalDate niver, String cnpj, UUID uuid) {
+
     }
 
     public List<String> getProdutos() {
