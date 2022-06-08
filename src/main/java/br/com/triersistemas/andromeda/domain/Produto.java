@@ -15,7 +15,7 @@ public class Produto {
 this.id = UUID.randomUUID();
 this.nome = StringUtils.getRandomMed();
 this.fornecedor = StringUtils.getRandomName();
-this.valor = StringUtils.get
+
 
     }
 
