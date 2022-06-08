@@ -1,13 +1,15 @@
 package br.com.triersistemas.andromeda.domain;
 
 
+import br.com.triersistemas.andromeda.helper.StringUtils;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
 
 
-public class PessoaJuridica extends Pessoa{
+public class PessoaJuridica extends Pessoa {
 
     private String cnpj;
 
@@ -22,7 +24,12 @@ public class PessoaJuridica extends Pessoa{
 
     protected PessoaJuridica(final String nome, final LocalDate niver, final String cnpj) {
         super(nome, niver);
-        this.cnpj = extractNumbers(cnpj);
+        this.cnpj = StringUtils.extractNumbers(cnpj);
+    }
+
+    public void editar(final String nome, final LocalDate niver, final String cnpj) {
+        super.editar(nome, niver);
+        this.cnpj = StringUtils.extractNumbers(cnpj);
     }
 
     private String geraCnpj(final List<Integer> digitos) {
@@ -42,8 +49,8 @@ public class PessoaJuridica extends Pessoa{
     }
 
     @Override
-    public boolean documentoValido() {
-        final List<Integer> digitos = extractNumbersToList(this.cnpj);
+    public boolean getDocumentoValido() {
+        final List<Integer> digitos = StringUtils.extractNumbersToList(this.cnpj);
         if (digitos.size() == 14 && digitos.stream().distinct().count() > 1) {
             return geraCnpj(digitos.subList(0, 12)).equals(this.cnpj);
         }

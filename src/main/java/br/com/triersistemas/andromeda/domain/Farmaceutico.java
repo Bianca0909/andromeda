@@ -14,6 +14,11 @@ public class Farmaceutico extends PessoaFisica {
         geraOferta();
     }
 
+    @Override
+    public boolean getDocumentoValido() {
+        return false;
+    }
+
     public Farmaceutico(final String nome, final LocalDate niver, final String cpf) {
         super(nome, niver, cpf);
         geraOferta();

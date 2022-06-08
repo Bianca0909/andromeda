@@ -26,6 +26,7 @@ public class StringUtils {
         return nomes.get(r.nextInt(0, nomes.size()));
     }
 
+
     public static List<String> getRandomMeds() {
         List<String> listaRetorno = new ArrayList<>();
         List<String> lista = new ArrayList<>();
