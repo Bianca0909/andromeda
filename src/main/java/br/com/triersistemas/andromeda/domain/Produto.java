@@ -6,17 +6,29 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 public class Produto {
+    private BigDecimal valor;
     private UUID id;
     private String nome;
-    private BigDecimal valor;
     private String fornecedor;
 
-    protected Produto(final UUID id, final String nome, final BigDecimal valor, final String fornecedor) {
+    public Produto() {
         this.id = UUID.randomUUID();
         this.nome = StringUtils.getRandomMed();
         this.fornecedor = StringUtils.getRandomName();
+        this.valor = StringUtils.getRandomValue();
+
+    }
+
+    public Produto(String nome, BigDecimal valor, String fornecedor) {
+        this.editar(nome, valor, fornecedor);
+    }
 
 
+    public Produto editar(final String nome, final BigDecimal valor, final String fornecedor) {
+        this.nome = nome;
+        this.valor = valor;
+        this.fornecedor = fornecedor;
+return this;
     }
 
     public UUID getId() {
@@ -34,4 +46,6 @@ public class Produto {
     public BigDecimal getValor() {
         return valor;
     }
+
+
 }
