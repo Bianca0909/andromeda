@@ -12,9 +12,9 @@ public class Produto {
     private String fornecedor;
 
     protected Produto(final UUID id, final String nome, final BigDecimal valor, final String fornecedor) {
-this.id = UUID.randomUUID();
-this.nome = StringUtils.getRandomMed();
-this.fornecedor = StringUtils.getRandomName();
+        this.id = UUID.randomUUID();
+        this.nome = StringUtils.getRandomMed();
+        this.fornecedor = StringUtils.getRandomName();
 
 
     }
