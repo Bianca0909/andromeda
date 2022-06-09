@@ -20,9 +20,10 @@ public class ClienteController {
     }
 
     @PostMapping("/cadastrar")
-    public List<Cliente> cadastrar(@RequestBody ClienteModel model) {
-        LIST.add(new Cliente(model.getNome(), model.getNiver(), model.getCpf(), model.getEmail()));
-        return LIST;
+    public Cliente cadastrar(@RequestBody ClienteModel model) {
+        var cliente = new Cliente(model.getNome(), model.getNiver(), model.getCpf(), model.getEmail());
+        LIST.add(cliente);
+        return cliente;
     }
 
     @PostMapping("/cadastrar-random")
@@ -32,23 +33,23 @@ public class ClienteController {
     }
 
  @PutMapping("/alterar/{id}")
-    public List<Cliente> alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
+    public Cliente alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NaoExisteException::new);
-        domain.editar(model.getNome(), model.getNiver(), model.getCpf());
-        return LIST;
+       return (Cliente) domain.editar(model.getNome(), model.getNiver(), model.getCpf());
+
     }
 
     @DeleteMapping("/remover/{id}")
-    public List<Cliente> remover(@PathVariable UUID id) {
+    public Cliente remover(@PathVariable UUID id) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NaoExisteException::new);
         LIST.remove(domain);
-        return LIST;
+        return domain;
     }
 }
 

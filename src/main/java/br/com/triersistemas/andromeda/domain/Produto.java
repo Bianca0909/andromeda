@@ -21,6 +21,7 @@ public class Produto {
 
     public Produto(String nome, BigDecimal valor, String fornecedor) {
         this.editar(nome, valor, fornecedor);
+        this.id = UUID.randomUUID();
     }
 
 
@@ -32,7 +33,7 @@ return this;
     }
 
     public UUID getId() {
-        return id;
+        return this.id;
     }
 
     public String getNome() {

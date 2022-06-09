@@ -1,10 +1,9 @@
 package br.com.triersistemas.andromeda.model;
 
 import lombok.Getter;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.UUID;
+
 
 @Getter
 public class ProdutoModel {
