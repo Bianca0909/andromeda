@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 
-
-
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
@@ -32,7 +30,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente consultarId(UUID id) {
-        return clienteRepository.pegarDoPote();
+        return clienteRepository.pegarDoPote(id).orElseThrow(NaoExisteException::new);
     }
 
     @Override
@@ -41,13 +39,7 @@ public class ClienteServiceImpl implements ClienteService {
         clienteRepository.enfiarNoPote(cliente);
         return cliente;
     }
-
-    @Override
-    public Cliente cadastrarRandom() {
-        Cliente cliente = new Cliente();
-        clienteRepository.enfiarNoPote();
-        return cliente;
-    }
+    
 
     @Override
     public Cliente alterar(UUID id, ClienteModel model) {
