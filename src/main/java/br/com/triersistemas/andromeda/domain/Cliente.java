@@ -11,15 +11,14 @@ public class Cliente extends PessoaFisica {
         this.email = email;
     }
 
-    public Cliente() {
-
-    }
 
     public Cliente editar(final String nome, final LocalDate niver, final String cpf, final String email) {
         super.editar(nome, niver, cpf);
         this.email = email;
         return this;
     }
+
+
 }
 
 

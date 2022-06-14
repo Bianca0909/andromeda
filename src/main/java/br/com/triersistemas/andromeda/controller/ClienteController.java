@@ -19,6 +19,11 @@ public class ClienteController {
         return LIST;
     }
 
+    @GetMapping("/consultar")
+    public List<Cliente> consultarId(@PathVariable UUID id, @RequestBody ClienteModel model) {
+        return (List<Cliente>) LIST.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(NaoExisteException::new);
+    }
+
     @PostMapping("/cadastrar")
     public Cliente cadastrar(@RequestBody ClienteModel model) {
         var cliente = new Cliente(model.getNome(), model.getNiver(), model.getCpf(), model.getEmail());
@@ -26,19 +31,14 @@ public class ClienteController {
         return cliente;
     }
 
-    @PostMapping("/cadastrar-random")
-    public List<Cliente> cadastrarRandom() {
-        LIST.add(new Cliente());
-        return LIST;
-    }
 
- @PutMapping("/alterar/{id}")
+    @PutMapping("/alterar/{id}")
     public Cliente alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
         var domain = LIST.stream()
                 .filter(x -> x.getId().equals(id))
                 .findFirst()
                 .orElseThrow(NaoExisteException::new);
-       return (Cliente) domain.editar(model.getNome(), model.getNiver(), model.getCpf());
+        return (Cliente) domain.editar(model.getNome(), model.getNiver(), model.getCpf());
 
     }
 
