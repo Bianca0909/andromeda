@@ -34,6 +34,12 @@ public class FornecedorServiceImpl implements FornecedorService {
         return fornecedor;
     }
 
+    @Override
+    public Fornecedor cadastrarRandom() {
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedorRepository.enfiarNoPote(fornecedor);
+        return fornecedor;
+    }
 
     @Override
     public Fornecedor alterar(UUID id, FornecedorModel model) {

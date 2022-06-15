@@ -13,16 +13,17 @@ import java.util.UUID;
 
 @Repository
 public class ProdutoServiceImpl implements ProdutoService {
+
     @Autowired
     private ProdutoRepository produtoRepository;
 
     @Override
-    public List<Produto> consultar(UUID idProduto) {
+    public List<Produto> consultar() {
         return produtoRepository.pegarTodosDoPote();
     }
 
     @Override
-    public Produto consultarId(UUID id) {
+    public Produto consultar(UUID id) {
         return produtoRepository.pegarDoPote(id).orElseThrow(NaoExisteException::new);
     }
 
@@ -36,14 +37,14 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public Produto alterar(UUID id, ProdutoModel model) {
-        Produto produto = this.consultarId(id);
+        Produto produto = this.consultar(id);
         produto.editar(model.getNome(), model.getValor());
         return produto;
     }
 
     @Override
     public Produto remover(UUID id) {
-        Produto produto = this.consultarId(id);
+        Produto produto = this.consultar(id);
         produtoRepository.jogarParaForaDoPote(produto);
         return produto;
     }

@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProdutoService {
-    List <Produto> consultar(UUID idProduto);
 
-    Produto consultarId(UUID id);
+    List<Produto> consultar();
+
+    Produto consultar(UUID id);
 
     Produto cadastrar(ProdutoModel model);
 

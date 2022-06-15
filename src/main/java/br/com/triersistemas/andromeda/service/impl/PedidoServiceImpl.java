@@ -33,7 +33,6 @@ public class PedidoServiceImpl implements PedidoService {
         return pedido;
     }
 
-
     @Override
     public Pedido alterar(UUID id, PedidoModel model) {
         Pedido pedido = this.consultar(id);
@@ -46,4 +45,5 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido pedido = this.consultar(id);
         pedidoRepository.jogarParaForaDoPote(pedido);
         return pedido;
-}}
+    }
+}

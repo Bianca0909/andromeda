@@ -3,7 +3,6 @@ package br.com.triersistemas.andromeda.service.impl;
 import br.com.triersistemas.andromeda.domain.Farmaceutico;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
-import br.com.triersistemas.andromeda.model.ProdutoModel;
 import br.com.triersistemas.andromeda.repository.FarmaceuticoRepository;
 import br.com.triersistemas.andromeda.service.FarmaceuticoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
 
 
     @Override
-    public Farmaceutico alterar(UUID id, ProdutoModel model) {
+    public Farmaceutico alterar(UUID id, FarmaceuticoModel model) {
         return null;
     }
 

@@ -18,7 +18,7 @@ public class ProdutoController {
 
     @GetMapping("/consultar")
     public List<Produto> consultar() {
-        return produtoService.consultar(idProduto);
+        return produtoService.consultar();
     }
 
     @PostMapping("/cadastrar")
