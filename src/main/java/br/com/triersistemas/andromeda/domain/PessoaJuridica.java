@@ -1,6 +1,5 @@
 package br.com.triersistemas.andromeda.domain;
 
-
 import br.com.triersistemas.andromeda.helper.StringUtils;
 
 import java.time.LocalDate;
@@ -8,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
 
-
-public class PessoaJuridica extends Pessoa {
+public abstract class PessoaJuridica extends Pessoa {
 
     private String cnpj;
 
@@ -35,9 +33,7 @@ public class PessoaJuridica extends Pessoa {
     private String geraCnpj(final List<Integer> digitos) {
         digitos.add(super.mod11(digitos, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9));
         digitos.add(super.mod11(digitos, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9));
-        return digitos.stream()
-                .map(Object::toString)
-                .reduce("", (p, e) -> p + e);
+        return StringUtils.listToString(digitos);
     }
 
     @Override

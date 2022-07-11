@@ -1,6 +1,5 @@
 package br.com.triersistemas.andromeda.helper;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -8,8 +7,7 @@ import java.util.SplittableRandom;
 
 public class StringUtils {
 
-    private StringUtils() {
-    }
+    private StringUtils() { }
 
     public static String getRandomName() {
         List<String> nomes = new ArrayList<>();
@@ -27,7 +25,6 @@ public class StringUtils {
         SplittableRandom r = new SplittableRandom();
         return nomes.get(r.nextInt(0, nomes.size()));
     }
-
 
     public static List<String> getRandomMeds() {
         List<String> listaRetorno = new ArrayList<>();
@@ -69,11 +66,6 @@ public class StringUtils {
         lista.add("Dramin");
         var r = new SplittableRandom();
         return lista.get(r.nextInt(0, lista.size()));
-    }
-
-    public static BigDecimal getRandomValue() {
-        int numero = new SplittableRandom().nextInt(100, 999);
-        return BigDecimal.valueOf(numero).divide(BigDecimal.valueOf(100));
     }
 
     public static String extractNumbers(final String val) {

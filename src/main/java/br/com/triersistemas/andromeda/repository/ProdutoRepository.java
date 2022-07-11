@@ -7,12 +7,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ProdutoRepository {
-
     List<Produto> pegarTodosDoPote();
-
     Optional<Produto> pegarDoPote(UUID id);
-
+    List<Produto> consultar(List<UUID> ids);
     void enfiarNoPote(Produto produto);
-
     void jogarParaForaDoPote(Produto produto);
 }

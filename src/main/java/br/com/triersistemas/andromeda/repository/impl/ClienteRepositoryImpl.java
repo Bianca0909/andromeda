@@ -9,28 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository
-public class ClienteRepositoryImpl implements ClienteRepository {
-    private static final List<Cliente> LIST = new ArrayList<>();
 
-    @Override
-    public List<Cliente> pegarTodosDoPote() {
-        return LIST;
-    }
+public class ClienteRepositoryImpl  {
 
-    @Override
-    public Optional<Cliente> pegarDoPote(UUID id) {
-        return LIST.stream().filter(produto -> id.equals(produto.getId())).findFirst();
-    }
-
-
-    @Override
-    public void enfiarNoPote(Cliente cliente) {
-        LIST.add(cliente);
-    }
-
-    @Override
-    public void jogarParaForaDoPote(Cliente cliente) {
-        LIST.remove(cliente);
-    }
 }

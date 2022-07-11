@@ -13,9 +13,9 @@ import java.util.UUID;
 
 @Service
 public class FarmaceuticoServiceImpl implements FarmaceuticoService {
+
     @Autowired
     private FarmaceuticoRepository farmaceuticoRepository;
-
 
     @Override
     public List<Farmaceutico> consultar() {
@@ -28,20 +28,30 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
     }
 
     @Override
+    public Farmaceutico cadastrarRandom() {
+        Farmaceutico farmaceutico = new Farmaceutico();
+        farmaceuticoRepository.enfiarNoPote(farmaceutico);
+        return farmaceutico;
+    }
+
+    @Override
     public Farmaceutico cadastrar(FarmaceuticoModel model) {
         Farmaceutico farmaceutico = new Farmaceutico(model.getNome(), model.getNiver(), model.getCpf());
         farmaceuticoRepository.enfiarNoPote(farmaceutico);
         return farmaceutico;
     }
 
-
     @Override
     public Farmaceutico alterar(UUID id, FarmaceuticoModel model) {
-        return null;
+        Farmaceutico farmaceutico = this.consultar(id);
+        farmaceutico.editar(model.getNome(), model.getNiver(), model.getCpf());
+        return farmaceutico;
     }
 
     @Override
     public Farmaceutico remover(UUID id) {
-        return null;
+        Farmaceutico farmaceutico = this.consultar(id);
+        farmaceuticoRepository.jogarParaForaDoPote(farmaceutico);
+        return farmaceutico;
     }
 }

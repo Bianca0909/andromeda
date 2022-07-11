@@ -2,12 +2,13 @@ package br.com.triersistemas.andromeda.domain;
 
 import br.com.triersistemas.andromeda.helper.StringUtils;
 
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
-import java.util.UUID;
 
+@MappedSuperclass
 public abstract class PessoaFisica extends Pessoa {
 
     private String cpf;
@@ -25,11 +26,13 @@ public abstract class PessoaFisica extends Pessoa {
         super(nome, niver);
         this.cpf = StringUtils.extractNumbers(cpf);
     }
+
     public PessoaFisica editar(final String nome, final LocalDate niver, final String cpf) {
         super.editar(nome, niver);
         this.cpf = StringUtils.extractNumbers(cpf);
         return this;
     }
+
     private String geraCpf(final List<Integer> digitos) {
         digitos.add(super.mod11(digitos, 1, 2, 3, 4, 5, 6, 7, 8, 9));
         digitos.add(super.mod11(digitos, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9));

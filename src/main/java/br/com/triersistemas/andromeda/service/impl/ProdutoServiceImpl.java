@@ -6,12 +6,12 @@ import br.com.triersistemas.andromeda.model.ProdutoModel;
 import br.com.triersistemas.andromeda.repository.ProdutoRepository;
 import br.com.triersistemas.andromeda.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
-@Repository
+@Service
 public class ProdutoServiceImpl implements ProdutoService {
 
     @Autowired
@@ -27,6 +27,10 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produtoRepository.pegarDoPote(id).orElseThrow(NaoExisteException::new);
     }
 
+    @Override
+    public List<Produto> consultar(List<UUID> ids) {
+        return produtoRepository.consultar(ids);
+    }
 
     @Override
     public Produto cadastrar(ProdutoModel model) {

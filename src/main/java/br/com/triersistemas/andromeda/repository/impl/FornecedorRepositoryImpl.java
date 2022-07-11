@@ -21,9 +21,8 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
 
     @Override
     public Optional<Fornecedor> pegarDoPote(UUID id) {
-        return LIST.stream().filter(produto -> id.equals(produto.getId())).findFirst();
+       return LIST.stream().filter(fornecedor -> id.equals(fornecedor.getId())).findFirst();
     }
-
 
     @Override
     public void enfiarNoPote(Fornecedor fornecedor) {
@@ -34,7 +33,4 @@ public class FornecedorRepositoryImpl implements FornecedorRepository {
     public void jogarParaForaDoPote(Fornecedor fornecedor) {
         LIST.remove(fornecedor);
     }
-
-
 }
-

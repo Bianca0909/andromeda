@@ -1,6 +1,5 @@
 package br.com.triersistemas.andromeda.service.impl;
 
-
 import br.com.triersistemas.andromeda.domain.Fornecedor;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.FornecedorModel;
@@ -14,6 +13,7 @@ import java.util.UUID;
 
 @Service
 public class FornecedorServiceImpl implements FornecedorService {
+
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
@@ -28,15 +28,15 @@ public class FornecedorServiceImpl implements FornecedorService {
     }
 
     @Override
-    public Fornecedor cadastrar(FornecedorModel model) {
-        Fornecedor fornecedor = new Fornecedor(model.getNome(), model.getNiver(), model.getCnpj());
+    public Fornecedor cadastrarRandom() {
+        Fornecedor fornecedor = new Fornecedor();
         fornecedorRepository.enfiarNoPote(fornecedor);
         return fornecedor;
     }
 
     @Override
-    public Fornecedor cadastrarRandom() {
-        Fornecedor fornecedor = new Fornecedor();
+    public Fornecedor cadastrar(FornecedorModel model) {
+        Fornecedor fornecedor = new Fornecedor(model.getNome(), model.getNiver(), model.getCnpj());
         fornecedorRepository.enfiarNoPote(fornecedor);
         return fornecedor;
     }

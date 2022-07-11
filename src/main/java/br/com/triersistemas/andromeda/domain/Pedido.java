@@ -35,11 +35,7 @@ public class Pedido {
         this.status = EnumStatusPedido.PENDENTE;
     }
 
-    public Pedido(UUID idCliente, UUID idFarmaceutico) {
-        
-    }
-
-    public Pedido adicionarProduto(final List<Produto> produtos) {
+    public Pedido addProdutos(final List<Produto> produtos) {
         if (EnumStatusPedido.PENDENTE.equals(this.status)) {
             this.produtos.addAll(produtos);
             this.valor = this.produtos.stream()
@@ -54,11 +50,8 @@ public class Pedido {
             this.valorPago = valor;
             this.troco = this.valorPago.subtract(this.valor);
             this.dataPagamento = LocalDateTime.now();
-            this.status = EnumStatusPedido.CONCLUIDO;
+            this.status = EnumStatusPedido.PAGO;
         }
         return this;
-    }
-
-    public void editar(UUID idCliente, UUID idFarmaceutico) {
     }
 }

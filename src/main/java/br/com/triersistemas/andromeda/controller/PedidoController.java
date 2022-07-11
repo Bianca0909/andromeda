@@ -22,8 +22,6 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
-    public static final List<Pedido> LIST = new ArrayList<>();
-
     @GetMapping("/consultar")
     public List<Pedido> consultar() {
         return pedidoService.consultar();
@@ -35,15 +33,12 @@ public class PedidoController {
     }
 
     @PutMapping("/adicionar-produto/{id}")
-    public Pedido adicionarProduto(@PathVariable UUID id, @RequestBody PedidoModel model) {
-     return pedidoService.alterar(id, model);
+    public Pedido adicionarProduto(@PathVariable UUID id, @RequestBody AdicionarProdutoModel model) {
+        return pedidoService.adicionarProduto(id, model);
     }
 
-    @DeleteMapping("/remover/{id}")
-    public Pedido remover(@RequestBody UUID id) {
-        return pedidoService.remover(id);
-
+    @PutMapping("/pagar/{id}")
+    public Pedido pagar(@PathVariable UUID id, @RequestBody PagarPedidoModel model) {
+        return pedidoService.pagar(id, model);
     }
-
-
 }

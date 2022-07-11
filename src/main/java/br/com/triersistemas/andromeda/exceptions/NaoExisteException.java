@@ -9,5 +9,4 @@ public class NaoExisteException extends RuntimeException {
     public NaoExisteException() {
         super("Registo não encontrado.");
     }
-
 }

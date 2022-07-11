@@ -1,7 +1,6 @@
 package br.com.triersistemas.andromeda.repository.impl;
 
 import br.com.triersistemas.andromeda.domain.Farmaceutico;
-import br.com.triersistemas.andromeda.domain.Fornecedor;
 import br.com.triersistemas.andromeda.repository.FarmaceuticoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +21,8 @@ public class FarmaceuticoRepositoryImpl implements FarmaceuticoRepository {
 
     @Override
     public Optional<Farmaceutico> pegarDoPote(UUID id) {
-        return LIST.stream().filter(produto -> id.equals(produto.getId())).findFirst();
+       return LIST.stream().filter(farmaceutico -> id.equals(farmaceutico.getId())).findFirst();
     }
-
 
     @Override
     public void enfiarNoPote(Farmaceutico farmaceutico) {
@@ -35,6 +33,4 @@ public class FarmaceuticoRepositoryImpl implements FarmaceuticoRepository {
     public void jogarParaForaDoPote(Farmaceutico farmaceutico) {
         LIST.remove(farmaceutico);
     }
-
-
 }
