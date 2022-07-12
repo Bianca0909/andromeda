@@ -25,13 +25,13 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public ClienteModel consultar(UUID id) {
-        return new ClienteModel(clienteRepository.findById(id).orElseThrow(NaoExisteException::new));
+        return new ClienteModel(this.buscarPorId(id));
     }
 
     @Override
     public ClienteModel cadastrar(ClienteModel model) {
         Cliente cliente = new Cliente(model);
-         return new ClienteModel(clienteRepository.save(cliente));
+        return new ClienteModel(clienteRepository.save(cliente));
     }
 
     @Override
@@ -45,10 +45,11 @@ public class ClienteServiceImpl implements ClienteService {
     public ClienteModel remover(UUID id) {
         Cliente cliente = this.buscarPorId(id);
         clienteRepository.delete(cliente);
+
         return new ClienteModel(cliente);
     }
 
     private Cliente buscarPorId(UUID id) {
-      return this.clienteRepository.findById(id).orElseThrow(NaoExisteException::new);
+        return this.clienteRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
 }

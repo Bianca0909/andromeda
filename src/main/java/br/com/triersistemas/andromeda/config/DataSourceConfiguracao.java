@@ -7,7 +7,8 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import javax.sql.DataSource;
 
 @Configuration
-public class DataSourceConfig {
+public class DataSourceConfiguracao {
+
     @Bean
     public DataSource dataSource() {
         String url = "jdbc:postgresql://localhost:5434/andromeda";
@@ -16,4 +17,5 @@ public class DataSourceConfig {
 
         return new DriverManagerDataSource(url, usuario, senha);
     }
+
 }

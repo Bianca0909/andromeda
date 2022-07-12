@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.time.LocalDate;
-
-@Getter
-@Table(name = "cliente")
 @Entity
+@Table(name = "cliente")
 @NoArgsConstructor
+@Getter
 public class Cliente extends PessoaFisica {
 
     private String email;
@@ -26,8 +25,9 @@ public class Cliente extends PessoaFisica {
 
     public Cliente(ClienteModel model) {
         super(model.getNome(), model.getNiver(), model.getCpf());
-        this.email = email;
+        this.email = model.getEmail();
     }
+
     public Cliente editar(final String nome,
                           final LocalDate niver,
                           final String cpf,

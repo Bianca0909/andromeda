@@ -1,7 +1,7 @@
-CREATE TABLE cliente(
+CREATE TABLE farmaceutico(
     id uuid PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     niver DATE,
     cpf VARCHAR(11) UNIQUE,
-    email VARCHAR(200) UNIQUE
+    oferta_dia VARCHAR(200)
 );
