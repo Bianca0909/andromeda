@@ -1,7 +1,7 @@
 package br.com.triersistemas.andromeda.enums;
 
-public enum EnumStatusPedido  {
+public enum EnumStatusPedido {
     PENDENTE,
-    CONCLUIDO,
+    PAGO,
     CANCELADO;
 }

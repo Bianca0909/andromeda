@@ -1,11 +1,11 @@
 package br.com.triersistemas.andromeda.controller;
 
 import br.com.triersistemas.andromeda.domain.Fornecedor;
-import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.FornecedorModel;
+import br.com.triersistemas.andromeda.service.FornecedorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,42 +13,35 @@ import java.util.UUID;
 @RequestMapping("/fornecedor")
 public class FornecedorController {
 
-    private static final List<Fornecedor> LIST = new ArrayList<>();
+    @Autowired
+    private FornecedorService fornecedorService;
 
     @GetMapping("/consultar")
-    public List<Fornecedor> consultar() {
-        return LIST;
+    public List<FornecedorModel> consultar() {
+        return fornecedorService.consultar();
     }
 
+    @GetMapping("/consultar/{id}")
+    public FornecedorModel consultar(@PathVariable UUID id) {
+        return fornecedorService.consultar(id);
+    }
     @PostMapping("/cadastrar")
-    public List<Fornecedor> cadastrar(@RequestBody FornecedorModel model) {
-        LIST.add(new Fornecedor(model.getNome(), model.getNiver(), model.getCnpj()));
-        return LIST;
+    public FornecedorModel cadastrar(@RequestBody FornecedorModel model) {
+        return fornecedorService.cadastrar(model);
     }
 
     @PostMapping("/cadastrar-random")
-    public List<Fornecedor> cadastrarRandom() {
-        LIST.add(new Fornecedor());
-        return LIST;
+    public FornecedorModel cadastrarRandom() {
+        return fornecedorService.cadastrarRandom();
     }
 
-    @PutMapping("/alterar/{id}")
-    public List<Fornecedor> alterar(@PathVariable UUID id, @RequestBody FornecedorModel model) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        domain.editar(model.getNome(), model.getNiver(), model.getCnpj());
-        return LIST;
+    @PutMapping("/alterar")
+    public FornecedorModel alterar(@RequestBody FornecedorModel model) {
+        return fornecedorService.alterar(model);
     }
 
     @DeleteMapping("/remover/{id}")
-    public List<Fornecedor> remover(@PathVariable UUID id) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        LIST.remove(domain);
-        return LIST;
+    public FornecedorModel remover(@PathVariable UUID id) {
+        return fornecedorService.remover(id);
     }
 }

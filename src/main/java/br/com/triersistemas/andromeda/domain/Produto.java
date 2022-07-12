@@ -1,52 +1,33 @@
 package br.com.triersistemas.andromeda.domain;
 
-import br.com.triersistemas.andromeda.helper.StringUtils;
+import br.com.triersistemas.andromeda.model.ProdutoModel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "produto")
 public class Produto {
-    private BigDecimal valor;
+    @Id
     private UUID id;
     private String nome;
-    private String fornecedor;
+    private BigDecimal valor;
 
-    public Produto() {
+    public Produto(ProdutoModel model) {
         this.id = UUID.randomUUID();
-        this.nome = StringUtils.getRandomMed();
-        this.fornecedor = StringUtils.getRandomName();
-        this.valor = StringUtils.getRandomValue();
-
+        this.editar(nome, valor);
     }
 
-    public Produto(String nome, BigDecimal valor, String fornecedor) {
-        this.editar(nome, valor, fornecedor);
-        this.id = UUID.randomUUID();
-    }
-
-
-    public Produto editar(final String nome, final BigDecimal valor, final String fornecedor) {
+    public Produto editar(final String nome, final BigDecimal valor) {
         this.nome = nome;
         this.valor = valor;
-        this.fornecedor = fornecedor;
-return this;
+        return this;
     }
-
-    public UUID getId() {
-        return this.id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getFornecedor() {
-        return fornecedor;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-
 }

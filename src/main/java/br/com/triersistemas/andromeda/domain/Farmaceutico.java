@@ -1,51 +1,40 @@
 package br.com.triersistemas.andromeda.domain;
 
+import br.com.triersistemas.andromeda.helper.StringUtils;
+import br.com.triersistemas.andromeda.model.ClienteModel;
+import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
+import lombok.Getter;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
-import java.util.UUID;
 
+@Entity
+@Getter
+@Table(name = "farmaceutico")
 public class Farmaceutico extends PessoaFisica {
 
+    @Column(name = "oferta_dia")
     private String ofertaDia;
 
     public Farmaceutico() {
-        geraOferta();
-    }
-
-    @Override
-    public boolean getDocumentoValido() {
-        return false;
+        this.ofertaDia = StringUtils.getRandomMed();
     }
 
     public Farmaceutico(final String nome, final LocalDate niver, final String cpf) {
         super(nome, niver, cpf);
-        geraOferta();
+        this.ofertaDia = StringUtils.getRandomMed();
     }
-
-
+    public Farmaceutico(FarmaceuticoModel model) {
+        super(model.getNome(), model.getNiver(), model.getCpf());
+        this.ofertaDia = model.getOfertaDia();
+    }
 
     public String getOfertaDia() {
         return ofertaDia;
-    }
-
-    private void geraOferta() {
-        List<String> lista = new ArrayList<>();
-        lista.add("Dipirona");
-        lista.add("Frauda Anjinho");
-        lista.add("Dove my care");
-        lista.add("Trident");
-        lista.add("Paracetamol");
-        lista.add("Rivotril");
-        lista.add("Cloridrato de paroxetina");
-        lista.add("Valium");
-        lista.add("Valeriana");
-        lista.add("Floral");
-        lista.add("Dramin");
-
-        var r = new SplittableRandom();
-
-        this.ofertaDia = lista.get(r.nextInt(0, lista.size()));
     }
 }

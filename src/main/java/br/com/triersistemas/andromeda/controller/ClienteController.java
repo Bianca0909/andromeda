@@ -1,117 +1,44 @@
 package br.com.triersistemas.andromeda.controller;
 
 import br.com.triersistemas.andromeda.domain.Cliente;
-import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.ClienteModel;
+import br.com.triersistemas.andromeda.service.ClienteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
-    private static final List<Cliente> LIST = new ArrayList<>();
+
+    @Autowired
+    private ClienteService clienteService;
 
     @GetMapping("/consultar")
-    public List<Cliente> consultar() {
-        return LIST;
+    public List<ClienteModel> consultar() {
+        return clienteService.consultar();
     }
 
-    @GetMapping("/consultar")
-    public List<Cliente> consultarId(@PathVariable UUID id, @RequestBody ClienteModel model) {
-        return (List<Cliente>) LIST.stream().filter(c -> c.getId().equals(id)).findFirst().orElseThrow(NaoExisteException::new);
+    @GetMapping("/consultar/{id}")
+    public ClienteModel consultarPorId(@PathVariable UUID id) {
+        return clienteService.consultar(id);
     }
 
     @PostMapping("/cadastrar")
-    public Cliente cadastrar(@RequestBody ClienteModel model) {
-        var cliente = new Cliente(model.getNome(), model.getNiver(), model.getCpf(), model.getEmail());
-        LIST.add(cliente);
-        return cliente;
+    public ClienteModel cadastrar(@RequestBody @Valid ClienteModel model) {
+        return clienteService.cadastrar(model);
     }
 
-
-    @PutMapping("/alterar/{id}")
-    public Cliente alterar(@PathVariable UUID id, @RequestBody ClienteModel model) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        return (Cliente) domain.editar(model.getNome(), model.getNiver(), model.getCpf());
-
+    @PutMapping("/alterar")
+    public ClienteModel alterar(@RequestBody @Valid ClienteModel model) {
+        return clienteService.alterar(model);
     }
 
     @DeleteMapping("/remover/{id}")
-    public Cliente remover(@PathVariable UUID id) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        LIST.remove(domain);
-        return domain;
+    public ClienteModel remover(@PathVariable UUID id) {
+        return clienteService.remover(id);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

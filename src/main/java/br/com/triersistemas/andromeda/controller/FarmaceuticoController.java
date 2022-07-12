@@ -1,12 +1,11 @@
-
 package br.com.triersistemas.andromeda.controller;
 
 import br.com.triersistemas.andromeda.domain.Farmaceutico;
-import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
+import br.com.triersistemas.andromeda.service.FarmaceuticoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,42 +13,36 @@ import java.util.UUID;
 @RequestMapping("/farmaceutico")
 public class FarmaceuticoController {
 
-    private static final List<Farmaceutico> LIST = new ArrayList<>();
+    @Autowired
+    private FarmaceuticoService farmaceuticoService;
 
     @GetMapping("/consultar")
-    public List<Farmaceutico> consultar() {
-        return LIST;
+    public List<FarmaceuticoModel> consultar() {
+        return farmaceuticoService.consultar();
+    }
+
+    @GetMapping("/consultar/{id}")
+    public FarmaceuticoModel consultar(@PathVariable UUID id) {
+        return farmaceuticoService.consultar(id);
     }
 
     @PostMapping("/cadastrar")
-    public List<Farmaceutico> cadastrar(@RequestBody FarmaceuticoModel model) {
-        LIST.add(new Farmaceutico(model.getNome(), model.getNiver(), model.getCpf()));
-        return LIST;
+    public FarmaceuticoModel cadastrar(@RequestBody FarmaceuticoModel model) {
+        return farmaceuticoService.cadastrar(model);
     }
 
     @PostMapping("/cadastrar-random")
-    public List<Farmaceutico> cadastrarRandom() {
-        LIST.add(new Farmaceutico());
-        return LIST;
+    public FarmaceuticoModel cadastrarRandom() {
+        return farmaceuticoService.cadastrarRandom();
     }
 
-    @PutMapping("/alterar/{id}")
-    public List<Farmaceutico> alterar(@PathVariable UUID id, @RequestBody FarmaceuticoModel model) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        domain.editar(model.getNome(), model.getNiver(), model.getCpf());
-        return LIST;
+    @PutMapping("/alterar/")
+    public FarmaceuticoModel alterar(@RequestBody  @PathVariable FarmaceuticoModel model) {
+        return farmaceuticoService.alterar(model);
     }
 
     @DeleteMapping("/remover/{id}")
-    public List<Farmaceutico> remover(@PathVariable UUID id) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        LIST.remove(domain);
-        return LIST;
+    public FarmaceuticoModel remover(@PathVariable UUID id) {
+        return farmaceuticoService.remover(id);
     }
 }

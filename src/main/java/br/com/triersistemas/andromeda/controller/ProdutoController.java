@@ -2,7 +2,10 @@ package br.com.triersistemas.andromeda.controller;
 
 import br.com.triersistemas.andromeda.domain.Produto;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
+import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
 import br.com.triersistemas.andromeda.model.ProdutoModel;
+import br.com.triersistemas.andromeda.service.ProdutoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -12,42 +15,36 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
-    private static final List<Produto> LIST = new ArrayList<>();
+
+    @Autowired
+    private ProdutoService produtoService;
 
     @GetMapping("/consultar")
-    public List<Produto> consultar() {
-        return LIST;
+    public List<ProdutoModel> consultar() {
+        return produtoService.consultar();
     }
 
+    @GetMapping("/consultar/{id}")
+    public ProdutoModel consultar(@PathVariable UUID id, @RequestBody ProdutoModel model) {
+        return produtoService.consultar(id);
+    }
+
+    @GetMapping("/consultar/{ids}")
+    public List<ProdutoModel> consultar(@PathVariable List<UUID> ids) {
+        return produtoService.consultar(ids);
+    }
     @PostMapping("/cadastrar")
-    public List<Produto> cadastrar(@RequestBody ProdutoModel model) {
-        LIST.add(new Produto(model.getNome(), model.getValor(), model.getFornecedor()));
-        return LIST;
+    public ProdutoModel cadastrar(@RequestBody ProdutoModel model) {
+        return produtoService.cadastrar(model);
     }
 
-    @PostMapping("/cadastrar-random")
-    public List<Produto> cadastrarRandom() {
-        LIST.add(new Produto());
-        return LIST;
-    }
-
-    @PutMapping("/alterar/{id}")
-    public List<Produto> alterar(@PathVariable UUID id, @RequestBody ProdutoModel model) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        domain.editar(model.getNome(), model.getValor(), model.getFornecedor());
-        return LIST;
+    @PutMapping("/alterar")
+    public ProdutoModel alterar(@RequestBody @PathVariable ProdutoModel model) {
+        return produtoService.alterar(model);
     }
 
     @DeleteMapping("/remover/{id}")
-    public List<Produto> remover(@PathVariable UUID id) {
-        var domain = LIST.stream()
-                .filter(x -> x.getId().equals(id))
-                .findFirst()
-                .orElseThrow(NaoExisteException::new);
-        LIST.remove(domain);
-        return LIST;
+    public ProdutoModel remover(@PathVariable UUID id) {
+        return produtoService.remover(id);
     }
 }
