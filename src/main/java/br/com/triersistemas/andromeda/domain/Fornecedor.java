@@ -1,6 +1,8 @@
 package br.com.triersistemas.andromeda.domain;
 
 import br.com.triersistemas.andromeda.helper.StringUtils;
+import br.com.triersistemas.andromeda.model.ClienteModel;
+import br.com.triersistemas.andromeda.model.FornecedorModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -12,7 +14,7 @@ import java.util.SplittableRandom;
 
 @Getter
 @Entity
-@Table(name = "produto")
+@Table(name = "fornecedor")
 public class Fornecedor extends PessoaJuridica {
 
 
@@ -32,6 +34,10 @@ public class Fornecedor extends PessoaJuridica {
         this.produtos = getProdutos();
     }
 
+    public Fornecedor(FornecedorModel model) {
+        super(model.getNome(), model.getNiver(), model.getCnpj());
+        this.produtos = getProdutos();
+    }
     public List<String> getProdutos() {
         return produtos;
     }

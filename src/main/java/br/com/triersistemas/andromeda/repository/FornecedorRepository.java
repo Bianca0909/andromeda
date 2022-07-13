@@ -1,14 +1,10 @@
 package br.com.triersistemas.andromeda.repository;
 
 import br.com.triersistemas.andromeda.domain.Fornecedor;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import java.util.UUID;
+@Repository
+public interface FornecedorRepository extends JpaRepository<Fornecedor, UUID> {
 
-public interface FornecedorRepository {
-    List<Fornecedor> pegarTodosDoPote();
-    Optional<Fornecedor> pegarDoPote(UUID id);
-    void enfiarNoPote(Fornecedor fornecedor);
-    void jogarParaForaDoPote(Fornecedor fornecedor);
 }

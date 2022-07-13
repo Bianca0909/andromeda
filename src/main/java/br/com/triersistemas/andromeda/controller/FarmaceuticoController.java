@@ -21,6 +21,11 @@ public class FarmaceuticoController {
         return farmaceuticoService.consultar();
     }
 
+    @GetMapping("/consultar/{id}")
+    public FarmaceuticoModel consultar(@PathVariable UUID id) {
+        return farmaceuticoService.consultar(id);
+    }
+
     @PostMapping("/cadastrar")
     public FarmaceuticoModel cadastrar(@RequestBody FarmaceuticoModel model) {
         return farmaceuticoService.cadastrar(model);

@@ -1,6 +1,7 @@
 package br.com.triersistemas.andromeda.domain;
 
 import br.com.triersistemas.andromeda.enums.EnumStatusPedido;
+import br.com.triersistemas.andromeda.model.ProdutoModel;
 import lombok.Getter;
 
 import java.math.BigDecimal;

@@ -25,10 +25,14 @@ public class ProdutoController {
     }
 
     @GetMapping("/consultar/{id}")
-    public List<ProdutoModel> consultarPorId() {
-        return produtoService.consultar();
+    public ProdutoModel consultar(@PathVariable UUID id, @RequestBody ProdutoModel model) {
+        return produtoService.consultar(id);
     }
 
+    @GetMapping("/consultar/{ids}")
+    public List<ProdutoModel> consultar(@PathVariable List<UUID> ids) {
+        return produtoService.consultar(ids);
+    }
     @PostMapping("/cadastrar")
     public ProdutoModel cadastrar(@RequestBody ProdutoModel model) {
         return produtoService.cadastrar(model);
