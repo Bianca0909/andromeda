@@ -50,6 +50,6 @@ public class ProdutoController {
 
     @GetMapping("/buspar-por-pedido/{idPedido}")
     public List<ProdutoModel> buscarPorPedido(@PathVariable UUID idPedido) {
-        return produtoService.buscarPorpedido(idPedido);
+        return produtoService.buscarPorPedido(idPedido);
     }
 }

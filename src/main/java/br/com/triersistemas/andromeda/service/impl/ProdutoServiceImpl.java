@@ -62,8 +62,8 @@ public class ProdutoServiceImpl implements ProdutoService {
     }
 
     @Override
-    public List<ProdutoModel> buscarPorpedido(UUID idPedido) {
-        return produtoRepository.buscarPorpedido(idPedido).stream().map((ProdutoModel::new).toList();
+    public List<ProdutoModel> buscarPorPedido(UUID idPedido) {
+        return produtoRepository.buscarPorPedido(idPedido).stream().map(ProdutoModel::new).toList();
     }
 
     private Produto buscarPorId(UUID id) {

@@ -15,7 +15,7 @@ public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
     @Query(value = "SELECT * FROM produto p " +
             "JOIN pedido_produto pp ON p.id = pp.produto_id " +
             "WHERE pp.pedido_id = ?1", nativeQuery = true)
-        List<ProdutoModel> buscarPorpedido(UUID idPedido);
+        List<ProdutoModel> buscarPorPedido(UUID idPedido);
     }
 
 

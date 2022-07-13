@@ -15,5 +15,5 @@ public interface ProdutoService {
     ProdutoModel alterar(ProdutoModel model);
     ProdutoModel remover(UUID id);
 
-    List<ProdutoModel> buscarPorpedido(UUID idPedido);
+    List<ProdutoModel> buscarPorPedido(UUID idPedido);
 }
