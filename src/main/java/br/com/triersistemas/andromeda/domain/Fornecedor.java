@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
 
+
 @Getter
 @Entity
 @Table(name = "fornecedor")
@@ -23,7 +24,7 @@ public class Fornecedor extends PessoaJuridica {
          joinColumns = @JoinColumn(columnDefinition = "fornecedor_id", referencedColumnName = "id"),
          inverseJoinColumns = @JoinColumn(columnDefinition = "produto_id", referencedColumnName = "id")
  )
-    private List<String> produtos;
+    private List<Produto> produtos;
 
     public Fornecedor() {
         this.produtos = getProdutos();
@@ -38,7 +39,7 @@ public class Fornecedor extends PessoaJuridica {
         super(model.getNome(), model.getNiver(), model.getCnpj());
         this.produtos = getProdutos();
     }
-    public List<String> getProdutos() {
+    public List<Produto> getProdutos() {
         return produtos;
     }
 }

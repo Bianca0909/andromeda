@@ -47,4 +47,9 @@ public class ProdutoController {
     public ProdutoModel remover(@PathVariable UUID id) {
         return produtoService.remover(id);
     }
+
+    @GetMapping("/buspar-por-pedido/{idPedido}")
+    public List<ProdutoModel> buscarPorPedido(@PathVariable UUID idPedido) {
+        return produtoService.buscarPorpedido(idPedido);
+    }
 }

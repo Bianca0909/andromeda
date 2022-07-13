@@ -60,4 +60,8 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
     private Farmaceutico buscarPorId(UUID id) {
         return this.farmaceuticoRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
+
+    protected Farmaceutico consultarFarmaceutico(UUID id) {
+        return this.buscarPorId(id);
+    }
 }

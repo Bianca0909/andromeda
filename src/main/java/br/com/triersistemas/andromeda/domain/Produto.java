@@ -26,8 +26,8 @@ public class Produto {
     }
 
     public Produto(ProdutoModel model) {
-        this.nome = nome;
-        this.valor = valor;
+        this.nome = model.getNome();
+        this.valor = model.getValor();
     }
 
     public Produto editar(final String nome, final BigDecimal valor) {

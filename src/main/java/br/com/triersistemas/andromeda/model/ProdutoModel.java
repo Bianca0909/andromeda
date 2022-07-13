@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-
+@NoArgsConstructor
 @Getter
 public class ProdutoModel {
 
@@ -17,9 +17,9 @@ public class ProdutoModel {
     private String nome;
     private BigDecimal valor;
 
-    public ProdutoModel(Produto model) {
-        this.id = getId();
-        this.nome = nome;
-        this.valor = valor;
+    public ProdutoModel(Produto produto) {
+        this.id = produto.getId();
+        this.nome = produto.getNome();
+        this.valor = produto.getValor();
     }
 }

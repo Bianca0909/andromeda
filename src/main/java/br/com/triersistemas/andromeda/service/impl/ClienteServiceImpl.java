@@ -52,4 +52,7 @@ public class ClienteServiceImpl implements ClienteService {
     private Cliente buscarPorId(UUID id) {
         return this.clienteRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
+    protected Cliente consultarCliente(UUID id) {
+        return this.buscarPorId(id);
+    }
 }

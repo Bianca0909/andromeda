@@ -63,4 +63,8 @@ public class FornecedorServiceImpl implements FornecedorService {
     private Fornecedor buscarPorId(UUID id) {
         return this.fornecedorRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
+
+    protected Fornecedor consultarFornecedor(UUID id) {
+        return this.buscarPorId(id);
+    }
 }
