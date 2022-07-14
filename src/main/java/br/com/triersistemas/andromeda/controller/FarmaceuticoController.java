@@ -36,8 +36,8 @@ public class FarmaceuticoController {
         return farmaceuticoService.cadastrarRandom();
     }
 
-    @PutMapping("/alterar/")
-    public FarmaceuticoModel alterar(@RequestBody  @PathVariable FarmaceuticoModel model) {
+    @PutMapping("/alterar")
+    public FarmaceuticoModel alterar(@RequestBody FarmaceuticoModel model) {
         return farmaceuticoService.alterar(model);
     }
 

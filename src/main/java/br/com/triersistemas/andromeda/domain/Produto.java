@@ -7,21 +7,22 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
-
-@Getter
-@NoArgsConstructor
 @Entity
 @Table(name = "produto")
+@NoArgsConstructor
+@Getter
 public class Produto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", insertable = false, updatable = false, nullable = false, unique = true)
+    @Column(name = "id",
+            insertable = false, updatable = false,
+            nullable = false, unique = true)
     private UUID id;
     private String nome;
     private BigDecimal valor;
 
     public Produto(final String nome, final BigDecimal valor) {
-        this.id = UUID.randomUUID();
         this.editar(nome, valor);
     }
 
@@ -35,4 +36,6 @@ public class Produto {
         this.valor = valor;
         return this;
     }
+
+
 }

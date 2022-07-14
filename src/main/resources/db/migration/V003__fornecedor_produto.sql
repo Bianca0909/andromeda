@@ -2,8 +2,7 @@ CREATE TABLE fornecedor(
     id uuid PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     niver DATE,
-    cnpj VARCHAR(11) UNIQUE
-
+    cnpj VARCHAR(14) UNIQUE
 );
 
 CREATE TABLE produto(
@@ -13,7 +12,9 @@ CREATE TABLE produto(
 );
 
 CREATE TABLE fornecedor_produto(
-   fornecedor_id uuid references fornecedor(id),
-   produto_id uuid references produto(id),
-   PRIMARY KEY (fornecedor_id, produto_id)
+    fornecedor_id uuid references fornecedor(id),
+    produto_id uuid references produto(id),
+    PRIMARY KEY (fornecedor_id, produto_id)
 );
+
+

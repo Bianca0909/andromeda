@@ -14,6 +14,4 @@ public interface PedidoService {
     PedidoModel cadastrar(PedidoModel model);
     PedidoModel adicionarProduto(UUID id, AdicionarProdutoModel model);
     PedidoModel pagar(UUID id, PagarPedidoModel model);
-
-
 }

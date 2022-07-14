@@ -1,29 +1,25 @@
 package br.com.triersistemas.andromeda.domain;
 
 import br.com.triersistemas.andromeda.helper.StringUtils;
-import br.com.triersistemas.andromeda.model.ClienteModel;
-import br.com.triersistemas.andromeda.model.FornecedorModel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.SplittableRandom;
 
-
-@Getter
 @Entity
 @Table(name = "fornecedor")
+@Getter
 public class Fornecedor extends PessoaJuridica {
 
-
- @ManyToMany
- @JoinTable(
-         joinColumns = @JoinColumn(columnDefinition = "fornecedor_id", referencedColumnName = "id"),
-         inverseJoinColumns = @JoinColumn(columnDefinition = "produto_id", referencedColumnName = "id")
- )
+    @ManyToMany
+    @JoinTable(
+            joinColumns = @JoinColumn(columnDefinition = "fornecedor_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(columnDefinition = "produto_id", referencedColumnName = "id")
+    )
     private List<Produto> produtos;
 
     public Fornecedor() {
@@ -35,11 +31,10 @@ public class Fornecedor extends PessoaJuridica {
         this.produtos = getProdutos();
     }
 
-    public Fornecedor(FornecedorModel model) {
-        super(model.getNome(), model.getNiver(), model.getCnpj());
-        this.produtos = getProdutos();
-    }
     public List<Produto> getProdutos() {
+        if (Objects.isNull(produtos)) {
+            produtos = new ArrayList<>();
+        }
         return produtos;
     }
 }

@@ -1,18 +1,15 @@
 package br.com.triersistemas.andromeda.model;
 
-import br.com.triersistemas.andromeda.controller.FarmaceuticoController;
 import br.com.triersistemas.andromeda.domain.Farmaceutico;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class FarmaceuticoModel {
-    @Id
     private UUID id;
     private String nome;
     private LocalDate niver;
@@ -33,6 +30,4 @@ public class FarmaceuticoModel {
         this.documento = farmaceutico.getDocumento();
         this.documentoValido = farmaceutico.getDocumentoValido();
     }
-
-
 }

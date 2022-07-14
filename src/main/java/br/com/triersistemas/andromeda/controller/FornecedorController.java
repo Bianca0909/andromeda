@@ -17,31 +17,27 @@ public class FornecedorController {
     private FornecedorService fornecedorService;
 
     @GetMapping("/consultar")
-    public List<FornecedorModel> consultar() {
+    public List<Fornecedor> consultar() {
         return fornecedorService.consultar();
     }
 
-    @GetMapping("/consultar/{id}")
-    public FornecedorModel consultar(@PathVariable UUID id) {
-        return fornecedorService.consultar(id);
-    }
     @PostMapping("/cadastrar")
-    public FornecedorModel cadastrar(@RequestBody FornecedorModel model) {
+    public Fornecedor cadastrar(@RequestBody FornecedorModel model) {
         return fornecedorService.cadastrar(model);
     }
 
     @PostMapping("/cadastrar-random")
-    public FornecedorModel cadastrarRandom() {
+    public Fornecedor cadastrarRandom() {
         return fornecedorService.cadastrarRandom();
     }
 
-    @PutMapping("/alterar")
-    public FornecedorModel alterar(@RequestBody FornecedorModel model) {
-        return fornecedorService.alterar(model);
+    @PutMapping("/alterar/{id}")
+    public Fornecedor alterar(@PathVariable UUID id, @RequestBody FornecedorModel model) {
+        return fornecedorService.alterar(id, model);
     }
 
     @DeleteMapping("/remover/{id}")
-    public FornecedorModel remover(@PathVariable UUID id) {
+    public Fornecedor remover(@PathVariable UUID id) {
         return fornecedorService.remover(id);
     }
 }

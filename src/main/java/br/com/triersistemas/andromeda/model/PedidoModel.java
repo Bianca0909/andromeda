@@ -17,10 +17,8 @@ import java.util.UUID;
 @Getter
 public class PedidoModel {
     private UUID id;
-
     private ClienteModel cliente;
     private FarmaceuticoModel farmaceutico;
-
     private List<ProdutoModel> produtos;
     private BigDecimal valor;
     private BigDecimal valorPago;
@@ -31,9 +29,12 @@ public class PedidoModel {
 
     public PedidoModel(Pedido pedido) {
         this.id = pedido.getId();
-        this.cliente = Objects.nonNull(pedido.getCliente()) ? new ClienteModel(pedido.getCliente()) : new ClienteModel();
-        this.farmaceutico = Objects.nonNull(pedido.getFarmaceutico()) ? new FarmaceuticoModel(pedido.getFarmaceutico()) : new FarmaceuticoModel();
 
+        this.cliente = Objects.nonNull(pedido.getCliente()) ?
+                new ClienteModel(pedido.getCliente()) : new ClienteModel();
+
+        this.farmaceutico = Objects.nonNull(pedido.getFarmaceutico()) ?
+                new FarmaceuticoModel(pedido.getFarmaceutico()) : new FarmaceuticoModel();
 
         this.produtos = criaListaProduto(pedido.getProdutos());
         this.valor = pedido.getValor();
@@ -42,8 +43,6 @@ public class PedidoModel {
         this.data = pedido.getData();
         this.dataPagamento = pedido.getDataPagamento();
         this.status = pedido.getStatus().name();
-
-
     }
 
     private List<ProdutoModel> criaListaProduto(List<Produto> produtos) {
@@ -54,5 +53,3 @@ public class PedidoModel {
         }
     }
 }
-
-

@@ -1,7 +1,6 @@
 package br.com.triersistemas.andromeda.domain;
 
 import br.com.triersistemas.andromeda.enums.EnumStatusPedido;
-import br.com.triersistemas.andromeda.model.ProdutoModel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,23 +10,24 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-@NoArgsConstructor
+
 @Entity
 @Table(name = "pedido")
 @Getter
+@NoArgsConstructor
 public class Pedido {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",
     insertable = false, updatable = false,
-    nullable = false, unique = false)
+    nullable = false, unique = true)
     private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente cliente;
+
     @ManyToOne
     @JoinColumn(name = "farmaceutico_id", referencedColumnName = "id")
     private Farmaceutico farmaceutico;
@@ -36,9 +36,9 @@ public class Pedido {
     @JoinTable(
             name = "pedido_produto",
             joinColumns = @JoinColumn(name = "pedido_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "produto_id"))
     private List<Produto> produtos;
+
     private BigDecimal valor;
 
     @Column(name = "valor_pago")
@@ -62,7 +62,6 @@ public class Pedido {
         this.data = LocalDateTime.now();
         this.status = EnumStatusPedido.PENDENTE;
     }
-
 
     public Pedido addProdutos(final List<Produto> produtos) {
         if (EnumStatusPedido.PENDENTE.equals(this.status)) {

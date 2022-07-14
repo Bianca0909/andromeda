@@ -1,9 +1,7 @@
 package br.com.triersistemas.andromeda.service.impl;
 
-import br.com.triersistemas.andromeda.domain.Farmaceutico;
 import br.com.triersistemas.andromeda.domain.Produto;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
-import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
 import br.com.triersistemas.andromeda.model.ProdutoModel;
 import br.com.triersistemas.andromeda.repository.ProdutoRepository;
 import br.com.triersistemas.andromeda.service.ProdutoService;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class ProdutoServiceImpl implements ProdutoService {
@@ -20,44 +17,42 @@ public class ProdutoServiceImpl implements ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-
     @Override
     public List<ProdutoModel> consultar() {
-        return produtoRepository.findAll().stream().map(ProdutoModel::new).collect(Collectors.toList());
+        return produtoRepository.findAll().stream().map(ProdutoModel::new).toList();
     }
 
     @Override
     public ProdutoModel consultar(UUID id) {
-        return new ProdutoModel(this.buscarPorId(id));
+        return new ProdutoModel(buscarProdutoPorId(id));
     }
 
     @Override
     public List<ProdutoModel> consultar(List<UUID> ids) {
-        return produtoRepository.findAllById(ids).stream().map(ProdutoModel::new).collect(Collectors.toList());
+        return produtoRepository.findAllById(ids).stream().map(ProdutoModel::new).toList();
     }
-
 
     protected List<Produto> consultarProdutos(List<UUID> ids) {
         return produtoRepository.findAllById(ids);
     }
+
     @Override
     public ProdutoModel cadastrar(ProdutoModel model) {
-        Produto produto = new Produto(model);
+        Produto produto = new Produto(model.getNome(), model.getValor());
         return new ProdutoModel(produtoRepository.save(produto));
     }
 
     @Override
     public ProdutoModel alterar(ProdutoModel model) {
-        Produto produto = this.buscarPorId(model.getId());
+        Produto produto = this.buscarProdutoPorId(model.getId());
         produto.editar(model.getNome(), model.getValor());
-        return new ProdutoModel(this.produtoRepository.save(produto));
+        return new ProdutoModel(produtoRepository.save(produto));
     }
 
     @Override
     public ProdutoModel remover(UUID id) {
-        Produto produto = this.buscarPorId(id);
+        Produto produto = this.buscarProdutoPorId(id);
         produtoRepository.delete(produto);
-
         return new ProdutoModel(produto);
     }
 
@@ -66,7 +61,7 @@ public class ProdutoServiceImpl implements ProdutoService {
         return produtoRepository.buscarPorPedido(idPedido).stream().map(ProdutoModel::new).toList();
     }
 
-    private Produto buscarPorId(UUID id) {
-        return this.produtoRepository.findById(id).orElseThrow(NaoExisteException::new);
+    private Produto buscarProdutoPorId(UUID id) {
+        return produtoRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
 }

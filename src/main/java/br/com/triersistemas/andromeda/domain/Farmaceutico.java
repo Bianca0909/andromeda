@@ -1,7 +1,6 @@
 package br.com.triersistemas.andromeda.domain;
 
 import br.com.triersistemas.andromeda.helper.StringUtils;
-import br.com.triersistemas.andromeda.model.ClienteModel;
 import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
 import lombok.Getter;
 
@@ -13,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SplittableRandom;
 
-@Entity
 @Getter
+@Entity
 @Table(name = "farmaceutico")
 public class Farmaceutico extends PessoaFisica {
 
@@ -29,10 +28,12 @@ public class Farmaceutico extends PessoaFisica {
         super(nome, niver, cpf);
         this.ofertaDia = StringUtils.getRandomMed();
     }
+
     public Farmaceutico(FarmaceuticoModel model) {
         super(model.getNome(), model.getNiver(), model.getCpf());
         this.ofertaDia = model.getOfertaDia();
     }
+
 
     public String getOfertaDia() {
         return ofertaDia;

@@ -1,20 +1,16 @@
 package br.com.triersistemas.andromeda.service.impl;
 
-import br.com.triersistemas.andromeda.domain.*;
+import br.com.triersistemas.andromeda.domain.Pedido;
+import br.com.triersistemas.andromeda.domain.Produto;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
 import br.com.triersistemas.andromeda.model.AdicionarProdutoModel;
 import br.com.triersistemas.andromeda.model.PagarPedidoModel;
 import br.com.triersistemas.andromeda.model.PedidoModel;
-import br.com.triersistemas.andromeda.model.ProdutoModel;
 import br.com.triersistemas.andromeda.repository.PedidoRepository;
-import br.com.triersistemas.andromeda.service.ClienteService;
-import br.com.triersistemas.andromeda.service.FarmaceuticoService;
 import br.com.triersistemas.andromeda.service.PedidoService;
-import br.com.triersistemas.andromeda.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +36,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public PedidoModel consultar(UUID id) {
-        return new PedidoModel(this.buscarPorId(id));
+        return new PedidoModel(this.buscarPedidoPorId(id));
     }
 
     @Override
@@ -53,7 +49,7 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public PedidoModel adicionarProduto(UUID id, AdicionarProdutoModel model) {
-        Pedido pedido = this.buscarPorId(id);
+        Pedido pedido = this.buscarPedidoPorId(id);
         List<Produto> produtos = produtoService.consultarProdutos(model.getIdsProdutos());
         pedido.addProdutos(produtos);
         return new PedidoModel(pedidoRepository.save(pedido));
@@ -61,14 +57,11 @@ public class PedidoServiceImpl implements PedidoService {
 
     @Override
     public PedidoModel pagar(UUID id, PagarPedidoModel model) {
-        var pedido = this.buscarPorId(id);
+        var pedido = this.buscarPedidoPorId(id);
         return new PedidoModel(pedido.pagar(model.getValor()));
     }
 
-    private Pedido buscarPorId(UUID id) {
+    private Pedido buscarPedidoPorId(UUID id) {
         return pedidoRepository.findById(id).orElseThrow(NaoExisteException::new);
-    }
-    protected Pedido consultarPedido(UUID id) {
-        return this.buscarPorId(id);
     }
 }

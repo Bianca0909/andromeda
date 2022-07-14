@@ -1,9 +1,7 @@
 package br.com.triersistemas.andromeda.service.impl;
 
-import br.com.triersistemas.andromeda.domain.Cliente;
 import br.com.triersistemas.andromeda.domain.Farmaceutico;
 import br.com.triersistemas.andromeda.exceptions.NaoExisteException;
-import br.com.triersistemas.andromeda.model.ClienteModel;
 import br.com.triersistemas.andromeda.model.FarmaceuticoModel;
 import br.com.triersistemas.andromeda.repository.FarmaceuticoRepository;
 import br.com.triersistemas.andromeda.service.FarmaceuticoService;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class FarmaceuticoServiceImpl implements FarmaceuticoService {
@@ -22,12 +19,16 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
 
     @Override
     public List<FarmaceuticoModel> consultar() {
-        return farmaceuticoRepository.findAll().stream().map(FarmaceuticoModel::new).collect(Collectors.toList());
+        return farmaceuticoRepository.findAll().stream().map(FarmaceuticoModel::new).toList();
     }
 
     @Override
     public FarmaceuticoModel consultar(UUID id) {
         return new FarmaceuticoModel(this.buscarPorId(id));
+    }
+
+    protected Farmaceutico consultarFarmaceutico(UUID id) {
+        return this.buscarPorId(id);
     }
 
     @Override
@@ -46,22 +47,17 @@ public class FarmaceuticoServiceImpl implements FarmaceuticoService {
     public FarmaceuticoModel alterar(FarmaceuticoModel model) {
         Farmaceutico farmaceutico = this.buscarPorId(model.getId());
         farmaceutico.editar(model.getNome(), model.getNiver(), model.getCpf());
-        return new FarmaceuticoModel(this.farmaceuticoRepository.save(farmaceutico));
+        return new FarmaceuticoModel(farmaceuticoRepository.save(farmaceutico));
     }
 
     @Override
     public FarmaceuticoModel remover(UUID id) {
         Farmaceutico farmaceutico = this.buscarPorId(id);
         farmaceuticoRepository.delete(farmaceutico);
-
         return new FarmaceuticoModel(farmaceutico);
     }
 
     private Farmaceutico buscarPorId(UUID id) {
-        return this.farmaceuticoRepository.findById(id).orElseThrow(NaoExisteException::new);
-    }
-
-    protected Farmaceutico consultarFarmaceutico(UUID id) {
-        return this.buscarPorId(id);
+        return farmaceuticoRepository.findById(id).orElseThrow(NaoExisteException::new);
     }
 }
